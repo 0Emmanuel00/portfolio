@@ -1,0 +1,18 @@
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /portfolio/
+
+  RewriteRule ^includes/ - [F,L]
+  RewriteRule ^actions/  - [F,L]
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+
+  RewriteRule ^projets$          projets.php     [L]
+  RewriteRule ^projet$           projet.php      [L,QSA]
+  RewriteRule ^apropos$          apropos.php     [L]
+  RewriteRule ^contact$          contact.php     [L]
+  RewriteRule ^mentions-legales$ mentions.php    [L]
+</IfModule>
