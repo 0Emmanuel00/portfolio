@@ -10,9 +10,9 @@ Options -Indexes
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
 
-  RewriteRule ^projets$          projets.php     [L]
-  RewriteRule ^projet$           projet.php      [L,QSA]
-  RewriteRule ^apropos$          apropos.php     [L]
-  RewriteRule ^contact$          contact.php     [L]
-  RewriteRule ^mentions-legales$ mentions.php    [L]
+  RewriteRule ^projets/?$          projets.php     [L]
+  RewriteRule ^projet/?$           projet.php      [L,QSA]
+  RewriteRule ^apropos/?$          apropos.php     [L]
+  RewriteRule ^contact/?$          contact.php     [L]
+  RewriteRule ^mentions-legales/?$ mentions.php    [L]
 </IfModule>

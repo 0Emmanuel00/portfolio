@@ -1,6 +1,6 @@
 /* ===================================================
    PORTFOLIO — CSS GLOBAL
-   Thème : violet sombre · Comic Sans MS
+   Thème : violet sombre · Sora + DM Sans
    =================================================== */
 
 /* ---------- Reset & variables ---------- */
@@ -21,7 +21,9 @@
   --radius:    12px;
   --radius-sm: 8px;
   --radius-pill: 24px;
-  --font: "Comic Sans MS", "Comic Sans", cursive;
+  --font-title: 'Sora', sans-serif;
+  --font-body:  'DM Sans', sans-serif;
+  --font:       'DM Sans', sans-serif;
 }
 
 html { scroll-behavior: smooth; }
@@ -29,7 +31,7 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: var(--font);
+  font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.6;
   min-height: 100vh;
@@ -113,6 +115,21 @@ img { max-width: 100%; display: block; }
   padding: 72px 40px 60px;
 }
 .hero-inner { position: relative; z-index: 2; max-width: 720px; }
+
+/* Orbs décoratifs */
+.orb {
+  position: absolute; border-radius: 50%; pointer-events: none;
+}
+.orb-1 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(124,58,237,.18), transparent 70%);
+  top: -100px; right: -80px;
+}
+.orb-2 {
+  width: 260px; height: 260px;
+  background: radial-gradient(circle, rgba(79,70,229,.12), transparent 70%);
+  bottom: -60px; left: -80px;
+}
 
 .hero-pill {
   display: inline-flex; align-items: center; gap: 8px;
@@ -443,6 +460,7 @@ img { max-width: 100%; display: block; }
   }
   .proj-detail-layout aside { order: -1; }
 }
+
 /* ---------- PAGE CONTACT ---------- */
 .contact-layout {
   display: grid;
@@ -642,4 +660,76 @@ img { max-width: 100%; display: block; }
   .alert { margin: 0 20px; }
   .about-intro-section { padding: 32px 20px; }
   .about-grid { padding: 28px 20px 0; }
+}
+
+/* ---------- COMPTEURS PROJETS ---------- */
+.proj-counts {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.proj-count {
+  font-size: 11px; color: var(--text-3);
+  display: flex; align-items: center; gap: 4px;
+}
+
+/* ---------- TYPOGRAPHIE SORA + DM SANS ---------- */
+h1, h2, h3, h4, h5, h6,
+.hero-title, .page-title, .proj-name,
+.proj-detail-title, .about-intro-name,
+.nav-logo, .cb-title, .section-title,
+.about-card-title, .login-title {
+  font-family: var(--font-title);
+  letter-spacing: -0.3px;
+}
+
+.btn, input, select, textarea,
+.filter-btn, .skill-tag, .proj-tag,
+.nav-links a, .footer-links a {
+  font-family: var(--font-body);
+}
+
+/* ---------- MENTIONS LÉGALES ---------- */
+.mentions-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 48px 40px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.mentions-card {
+  background: var(--bg3);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+}
+.mentions-title {
+  font-family: var(--font-title);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--purple-l);
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 0.5px solid var(--border);
+}
+.mentions-content p {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.75;
+  margin-bottom: 8px;
+}
+.mentions-content p:last-child { margin-bottom: 0; }
+.mentions-content strong { color: var(--text); font-weight: 500; }
+.mentions-link { color: var(--purple-l); transition: opacity .2s; }
+.mentions-link:hover { opacity: .75; }
+.mentions-content a { color: var(--purple-l); }
+.mentions-date {
+  font-size: 12px;
+  color: var(--text-3);
+  text-align: center;
+  margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .mentions-wrap { padding: 28px 20px 48px; }
 }

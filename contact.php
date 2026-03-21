@@ -3,12 +3,11 @@ require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/functions.php';
 
-// Message de retour après envoi
 $success = isset($_GET['sent'])  && $_GET['sent']  === '1';
 $error   = isset($_GET['error']) && $_GET['error'] === '1';
 
 $page_title  = 'Contact — ' . SITE_NOM;
-$page_desc   = 'Contactez ' . SITE_AUTEUR . ' pour une proposition de recrutement, stage ou alternance.';
+$page_desc   = 'Contactez ' . SITE_AUTEUR . ' — étudiant développeur web.';
 $page_active = 'contact';
 
 require_once __DIR__ . '/includes/header.php';
@@ -17,24 +16,23 @@ require_once __DIR__ . '/includes/header.php';
 <section class="page-hero">
   <div class="page-hero-inner">
     <span class="hero-pill"><span class="pill-dot"></span> Me contacter</span>
-    <h1 class="page-title">Travaillons <span class="hero-accent">ensemble</span></h1>
-    <p class="page-sub">Recruteur, patron ou curieux — envoyez-moi un message, je réponds sous 24h.</p>
+    <h1 class="page-title">Envoyez-moi un <span class="hero-accent">message</span></h1>
+    <p class="page-sub">Une question, une idée, une opportunité ? Je lis tous les messages et réponds rapidement.</p>
   </div>
 </section>
 
 <?php if ($success): ?>
-  <div class="alert alert-success">
-    Message envoyé ! Je vous répondrai dans les plus brefs délais.
+  <div class="alert alert-success" style="margin: 0 40px 24px">
+    ✓ Message envoyé ! Je vous répondrai dans les plus brefs délais.
   </div>
 <?php elseif ($error): ?>
-  <div class="alert alert-error">
+  <div class="alert alert-error" style="margin: 0 40px 24px">
     Une erreur est survenue lors de l'envoi. Veuillez réessayer.
   </div>
 <?php endif; ?>
 
 <div class="contact-layout">
 
-  <!-- Infos gauche -->
   <div class="contact-infos">
     <h2 class="contact-infos-title">Informations</h2>
 
@@ -50,14 +48,14 @@ require_once __DIR__ . '/includes/header.php';
         <div class="cinfo-icon">🎓</div>
         <div>
           <div class="cinfo-lbl">Statut</div>
-          <div class="cinfo-val">Étudiant · Disponible</div>
+          <div class="cinfo-val">Étudiant en informatique</div>
         </div>
       </div>
       <div class="cinfo-item">
         <div class="cinfo-icon">⏱</div>
         <div>
           <div class="cinfo-lbl">Temps de réponse</div>
-          <div class="cinfo-val">Moins de 24h</div>
+          <div class="cinfo-val">Moins de 48h</div>
         </div>
       </div>
     </div>
@@ -73,16 +71,14 @@ require_once __DIR__ . '/includes/header.php';
 
     <div class="contact-note">
       <span class="contact-note-icon">🔒</span>
-      <p>Ton adresse e-mail n'est jamais affichée publiquement. Le message m'est transmis de façon sécurisée.</p>
+      <p>Votre adresse e-mail ne sera jamais partagée. Le message m'est transmis de façon sécurisée.</p>
     </div>
   </div>
 
-  <!-- Formulaire droite -->
   <div class="contact-form-wrap">
-    <h2 class="contact-form-title">Envoyer un message</h2>
+    <h2 class="contact-form-title">Votre message</h2>
 
     <form action="<?= SITE_URL ?>/actions/send_contact.php" method="POST" class="contact-form" id="contact-form" novalidate>
-      <!-- Token CSRF -->
       <?php
         session_start();
         if (empty($_SESSION['csrf_token'])) {
@@ -108,10 +104,8 @@ require_once __DIR__ . '/includes/header.php';
         <label for="objet">Objet <span class="req">*</span></label>
         <select id="objet" name="objet" required>
           <option value="">— Choisissez un objet —</option>
-          <option value="Proposition de recrutement">Proposition de recrutement</option>
-          <option value="Stage">Stage</option>
-          <option value="Alternance">Alternance</option>
-          <option value="Collaboration">Collaboration</option>
+          <option value="Collaboration">Une collaboration</option>
+          <option value="Question sur un projet">Question sur un projet</option>
           <option value="Autre">Autre</option>
         </select>
       </div>
@@ -119,11 +113,10 @@ require_once __DIR__ . '/includes/header.php';
       <div class="field">
         <label for="message">Message <span class="req">*</span></label>
         <textarea id="message" name="message" rows="6"
-                  placeholder="Votre message ici..." maxlength="3000" required></textarea>
+                  placeholder="Écrivez votre message ici..." maxlength="3000" required></textarea>
         <span class="char-count" id="char-count">0 / 3000</span>
       </div>
 
-      <!-- Honeypot anti-spam (champ invisible) -->
       <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
 
       <button type="submit" class="btn btn-primary btn-submit" id="submit-btn">
@@ -135,7 +128,6 @@ require_once __DIR__ . '/includes/header.php';
 </div>
 
 <script>
-// Compteur de caractères
 const textarea  = document.getElementById('message');
 const charCount = document.getElementById('char-count');
 if (textarea && charCount) {
@@ -145,8 +137,6 @@ if (textarea && charCount) {
     charCount.style.color = n > 2700 ? '#f87171' : '';
   });
 }
-
-// Désactiver le bouton à la soumission pour éviter le double envoi
 const form = document.getElementById('contact-form');
 const btn  = document.getElementById('submit-btn');
 if (form && btn) {

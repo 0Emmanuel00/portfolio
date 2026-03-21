@@ -7,22 +7,23 @@ $pdo = get_db();
 
 // Compétences avec pourcentages — à personnaliser
 $competences = [
-    ['nom' => 'HTML / CSS',    'pct' => 85, 'couleur' => '#60a5fa'],
-    ['nom' => 'PHP',           'pct' => 75, 'couleur' => '#818cf8'],
-    ['nom' => 'JavaScript',    'pct' => 70, 'couleur' => '#fbbf24'],
-    ['nom' => 'MySQL',         'pct' => 65, 'couleur' => '#6ee7b7'],
-    ['nom' => 'Git',           'pct' => 60, 'couleur' => '#f87171'],
-    ['nom' => 'Node.js',       'pct' => 45, 'couleur' => '#86efac'],
+    ['nom' => 'HTML / CSS',     'pct' => 80, 'couleur' => '#6ee7b7'],
+    ['nom' => 'PHP',            'pct' => 80, 'couleur' => '#60a5fa'],
+    ['nom' => 'Godot Engine',   'pct' => 70, 'couleur' => '#818cf8'],
+    ['nom' => 'Python',         'pct' => 55, 'couleur' => '#22B14C'],
+    ['nom' => 'Langage C',      'pct' => 35, 'couleur' => '#86efac'],
+    ['nom' => 'Langage C++',    'pct' => 30, 'couleur' => '#86efac'],
+    ['nom' => 'Git',            'pct' => 10, 'couleur' => '#f87171'],
 ];
 
 // Formation — à personnaliser
 $formation = [
-    ['annee' => '2023 – 2025', 'titre' => 'BTS SIO / DUT Informatique', 'lieu' => 'En cours — à préciser'],
-    ['annee' => '2023',        'titre' => 'Baccalauréat',               'lieu' => 'Lycée — à préciser'],
+    ['annee' => '2024 – 2026', 'titre' => 'BTS CIEL',                   'lieu' => 'En cours — DHUODA'],
+    ['annee' => '2024',        'titre' => 'Baccalauréat',               'lieu' => 'Lycée LaSalle'],
 ];
 
 // Loisirs
-$loisirs = ['Développement', 'Jeux vidéo', 'Open source', 'Design UI', 'Veille tech'];
+$loisirs = ['Développement', 'Jeux vidéo'];
 
 $nb_projets = count_projets($pdo);
 $nb_techs   = count_techs($pdo);
@@ -54,9 +55,8 @@ require_once __DIR__ . '/includes/header.php';
     </h2>
     <p class="about-intro-role"><?= e(SITE_METIER) ?> · <?= e(SITE_LOCALITE) ?></p>
     <p class="about-intro-bio">
-      Passionné par le développement depuis le lycée, je crée des projets web, des applications
-      et des jeux. Je suis actuellement en formation et je cherche à rejoindre une entreprise
-      en <strong>alternance ou stage</strong> dans le domaine du développement web fullstack.
+      Passionné par le développement depuis le le collège, je crée des projets web, des applications
+      ainsi des jeux. Je suis actuellement en étude supérieur, et je suis toujours passionné par les mêmes chose.
     </p>
     <div class="about-intro-stats">
       <div class="istat">
@@ -126,7 +126,7 @@ require_once __DIR__ . '/includes/header.php';
     </div>
   </div>
 
-  <!-- Ce que je recherche -->
+  <!-- Ce que je recherche
   <div class="about-card">
     <h2 class="about-card-title">
       <span class="about-card-icon">🎯</span> Ce que je recherche
@@ -144,7 +144,7 @@ require_once __DIR__ . '/includes/header.php';
       <span class="rtag">Développement web</span>
       <span class="rtag">Fullstack</span>
     </div>
-  </div>
+  </div> -->
 
   <!-- Loisirs -->
   <div class="about-card">

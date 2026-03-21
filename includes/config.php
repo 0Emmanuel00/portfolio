@@ -39,3 +39,23 @@ if (ENV === 'dev') {
 } else {
     ini_set('display_errors', 0);
 }
+// En local sur WAMP, mettre true pour utiliser les .php
+// En production, mettre false pour les URL propres
+define('USE_EXT', true);
+
+// Helper pour les liens
+function url(string $path): string {
+    if (!defined('USE_EXT') || !USE_EXT) return SITE_URL . $path;
+    $map = [
+        '/projets' => '/projets.php',
+        '/projet'  => '/projet.php',
+        '/apropos' => '/apropos.php',
+        '/contact' => '/contact.php',
+    ];
+    foreach ($map as $clean => $ext) {
+        if (str_starts_with($path, $clean)) {
+            return SITE_URL . str_replace($clean, $ext, $path);
+        }
+    }
+    return SITE_URL . $path;
+}

@@ -5,13 +5,9 @@ require_once __DIR__ . '/includes/functions.php';
 
 $pdo = get_db();
 
-// Filtre actif (site / app / jeu / '' = tous)
 $type_actif = in_array($_GET['type'] ?? '', ['site','app','jeu']) ? $_GET['type'] : '';
+$projets    = get_projets($pdo, $type_actif);
 
-// Récupérer les projets filtrés
-$projets = get_projets($pdo, $type_actif);
-
-// Compter par type pour les badges
 $counts = ['tous' => 0, 'site' => 0, 'app' => 0, 'jeu' => 0];
 $tous   = get_projets($pdo);
 $counts['tous'] = count($tous);
@@ -34,23 +30,21 @@ require_once __DIR__ . '/includes/header.php';
   </div>
 </section>
 
-<!-- Filtres -->
 <div class="filters-bar">
-  <a href="/projets"           class="filter-btn <?= $type_actif === ''     ? 'active' : '' ?>">
+  <a href="<?= SITE_URL ?>/projets.php" class="filter-btn <?= $type_actif === '' ? 'active' : '' ?>">
     Tout <span class="filter-count"><?= $counts['tous'] ?></span>
   </a>
-  <a href="/projets?type=site" class="filter-btn <?= $type_actif === 'site' ? 'active' : '' ?>">
+  <a href="<?= SITE_URL ?>/projets.php?type=site" class="filter-btn <?= $type_actif === 'site' ? 'active' : '' ?>">
     Sites web <span class="filter-count"><?= $counts['site'] ?></span>
   </a>
-  <a href="/projets?type=app"  class="filter-btn <?= $type_actif === 'app'  ? 'active' : '' ?>">
+  <a href="<?= SITE_URL ?>/projets.php?type=app" class="filter-btn <?= $type_actif === 'app' ? 'active' : '' ?>">
     Applications <span class="filter-count"><?= $counts['app'] ?></span>
   </a>
-  <a href="/projets?type=jeu"  class="filter-btn <?= $type_actif === 'jeu'  ? 'active' : '' ?>">
+  <a href="<?= SITE_URL ?>/projets.php?type=jeu" class="filter-btn <?= $type_actif === 'jeu' ? 'active' : '' ?>">
     Jeux <span class="filter-count"><?= $counts['jeu'] ?></span>
   </a>
 </div>
 
-<!-- Grille projets -->
 <section class="section">
   <?php if (empty($projets)): ?>
     <p class="empty-msg">Aucun projet dans cette catégorie pour l'instant.</p>
@@ -59,7 +53,6 @@ require_once __DIR__ . '/includes/header.php';
       <?php foreach ($projets as $p): ?>
         <article class="proj-card proj-card--full">
 
-          <!-- Image / placeholder -->
           <?php if ($p['image']): ?>
             <div class="proj-img" style="background-image:url('<?= e(SITE_URL . '/' . $p['image']) ?>')"></div>
           <?php else: ?>
@@ -81,17 +74,23 @@ require_once __DIR__ . '/includes/header.php';
               <?php endforeach; ?>
             </div>
 
+            <?php if ($p['nombre_visite'] > 0 || $p['nombre_download'] > 0): ?>
+              <div class="proj-counts">
+                <?php if ($p['nombre_visite'] > 0): ?>
+                  <span class="proj-count">👁 <?= (int)$p['nombre_visite'] ?> vue<?= $p['nombre_visite'] > 1 ? 's' : '' ?></span>
+                <?php endif; ?>
+                <?php if ($p['nombre_download'] > 0): ?>
+                  <span class="proj-count">↓ <?= (int)$p['nombre_download'] ?> téléchargement<?= $p['nombre_download'] > 1 ? 's' : '' ?></span>
+                <?php endif; ?>
+              </div>
+            <?php endif; ?>
+
             <div class="proj-actions">
               <a href="<?= SITE_URL ?>/projet?id=<?= (int)$p['id'] ?>" class="btn btn-primary btn-sm">
                 Voir le projet
               </a>
-              <?php if ($p['url_demo']): ?>
-                <a href="<?= e($p['url_demo']) ?>" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">
-                  Visiter →
-                </a>
-              <?php endif; ?>
               <?php if ($p['url_download']): ?>
-                <a href="<?= e($p['url_download']) ?>" class="btn btn-ghost btn-sm">
+                <a href="<?= SITE_URL ?>/actions/download.php?id=<?= (int)$p['id'] ?>" class="btn btn-ghost btn-sm">
                   Télécharger ↓
                 </a>
               <?php endif; ?>
@@ -104,10 +103,9 @@ require_once __DIR__ . '/includes/header.php';
   <?php endif; ?>
 </section>
 
-<!-- Bannière contact bas de page -->
 <div class="contact-banner" style="margin-bottom:56px">
   <h2 class="cb-title">Un projet en tête ?</h2>
-  <p class="cb-sub">Contactez-moi pour discuter d'une collaboration ou d'un recrutement.</p>
+  <p class="cb-sub">Contactez-moi pour discuter d'une collaboration.</p>
   <a href="<?= SITE_URL ?>/contact" class="btn btn-primary">Me contacter</a>
 </div>
 
