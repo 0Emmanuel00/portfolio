@@ -31,8 +31,8 @@ require_once __DIR__ . '/includes/header.php';
     </h1>
 
     <p class="hero-sub">
-      Portfolio d'<?= e(SITE_AUTEUR) ?> — étudiant en BTS informatique passionné
-      par le développement web de jeux et d'applications.
+      Portfolio d'<?= e(SITE_AUTEUR) ?> — étudiant en BTS informatique, passionné
+      par le développement de sites web, de jeux et d'applications.
     </p>
 
     <div class="hero-btns">
@@ -125,7 +125,7 @@ require_once __DIR__ . '/includes/header.php';
     <p class="about-name"><?= e(SITE_AUTEUR) ?></p>
     <p class="about-desc">
       Étudiant en informatique, je développe depuis maintenant <?= date('Y') - 2018 ?> ans.
-      J'aime bien développer, c'est une passion donc depuis peux je les partages avec le monde entier !
+      J'aime bien développer, c'est une passion, donc depuis peu je les partage avec le monde entier !
     </p>
   </div>
   <a href="<?= SITE_URL ?>/apropos.php" class="btn btn-secondary">En savoir plus</a>
@@ -133,7 +133,7 @@ require_once __DIR__ . '/includes/header.php';
 
 <section class="contact-banner">
   <h2 class="cb-title">Si vous souhaitez me contacter.</h2>
-  <p class="cb-sub">Qui que vous soyez — envoyez-moi un message, j'essayerai d'y repondre rapidement possible.</p>
+  <p class="cb-sub">Qui que vous soyez — envoyez-moi un message, j'essaierai d'y répondre le plus rapidement possible.</p>
   <a href="<?= SITE_URL ?>/contact.php" class="btn btn-primary">M'envoyer un message</a>
 </section>
 

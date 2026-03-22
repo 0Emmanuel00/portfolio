@@ -105,7 +105,7 @@ require_once __DIR__ . '/includes/header.php';
 
 <div class="contact-banner" style="margin-bottom:56px">
   <h2 class="cb-title">Un projet en tête ?</h2>
-  <p class="cb-sub">Contactez-moi pour discuter d'une collaboration.</p>
+  <p class="cb-sub">Contactez-moi pour discuter d’une éventuelle collaboration.</p>
   <a href="<?= SITE_URL ?>/contact" class="btn btn-primary">Me contacter</a>
 </div>
 

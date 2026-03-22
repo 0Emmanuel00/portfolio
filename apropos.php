@@ -55,8 +55,8 @@ require_once __DIR__ . '/includes/header.php';
     </h2>
     <p class="about-intro-role"><?= e(SITE_METIER) ?> · <?= e(SITE_LOCALITE) ?></p>
     <p class="about-intro-bio">
-      Passionné par le développement depuis le le collège, je crée des projets web, des applications
-      ainsi des jeux. Je suis actuellement en étude supérieur, et je suis toujours passionné par les mêmes chose.
+      Passionné par le développement depuis le collège, je crée des projets web, des applications
+      ainsi que des jeux. Je suis actuellement en étude supérieur, et je suis toujours passionné par ce domaine la !
     </p>
     <div class="about-intro-stats">
       <div class="istat">
@@ -68,7 +68,7 @@ require_once __DIR__ . '/includes/header.php';
         <span class="istat-lbl">Technologies</span>
       </div>
       <div class="istat">
-        <span class="istat-val"><?= date('Y') - 2022 ?> ans</span>
+        <span class="istat-val"><?= date('Y') - 2024 ?> ans</span>
         <span class="istat-lbl">d'étude</span>
       </div>
     </div>
@@ -104,7 +104,7 @@ require_once __DIR__ . '/includes/header.php';
     </div>
   </div>
 
-  <!-- Formation -->
+  <!-- Formation
   <div class="about-card">
     <h2 class="about-card-title">
       <span class="about-card-icon">🎓</span> Formation
@@ -124,7 +124,7 @@ require_once __DIR__ . '/includes/header.php';
         </div>
       <?php endforeach; ?>
     </div>
-  </div>
+  </div> -->
 
   <!-- Ce que je recherche
   <div class="about-card">
