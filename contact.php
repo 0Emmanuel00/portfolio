@@ -80,8 +80,8 @@ require_once __DIR__ . '/includes/header.php';
 
     <form action="<?= SITE_URL ?>/actions/send_contact.php" method="POST" class="contact-form" id="contact-form" novalidate>
       <?php
-        session_start();
-        if (empty($_SESSION['csrf_token'])) {
+      if (session_status() === PHP_SESSION_NONE) session_start();
+      if (empty($_SESSION['csrf_token'])) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         }
       ?>

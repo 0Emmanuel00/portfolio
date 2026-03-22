@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/functions.php';
+require_once __DIR__ . '/../includes/tracker.php';
 require_once __DIR__ . '/auth.php';
 
 $pdo = get_db();
@@ -15,6 +16,10 @@ $derniers_msgs = $pdo->query('SELECT * FROM messages ORDER BY created_at DESC LI
 $derniers_proj = $pdo->query('SELECT * FROM projets ORDER BY created_at DESC LIMIT 5')->fetchAll();
 foreach ($derniers_proj as &$p) { $p['techs'] = get_techs_projet($pdo, $p['id']); } unset($p);
 
+// Stats visites
+$stats_totales = get_stats_totales($pdo);
+$stats_jours   = get_stats_visites($pdo, 14);
+
 $page_label = 'Dashboard';
 ?>
 <!DOCTYPE html>
@@ -24,6 +29,7 @@ $page_label = 'Dashboard';
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard — Admin</title>
   <link rel="stylesheet" href="<?= SITE_URL ?>/admin/admin.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 </head>
 <body>
 <div class="admin-wrap">
@@ -40,7 +46,7 @@ $page_label = 'Dashboard';
         <a href="<?= SITE_URL ?>/admin/projets.php?action=new" class="btn btn-primary">+ Nouveau projet</a>
       </div>
 
-      <!-- Stats -->
+      <!-- Stats principales -->
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-card-icon-wrap">🗂</div>
@@ -62,14 +68,35 @@ $page_label = 'Dashboard';
             <div class="stat-card-lbl" style="color:var(--purple-l);margin-top:2px">Messages</div>
           </div>
         </div>
-        <div class="stat-card">
-          <div class="stat-card-icon-wrap">🏷</div>
+        <div class="stat-card stat-card--ok">
+          <div class="stat-card-icon-wrap">👁</div>
           <div>
-            <div class="stat-card-val"><?= $nb_techs ?></div>
-            <div class="stat-card-lbl" style="color:var(--purple-l);margin-top:2px">Technologies</div>
+            <div class="stat-card-val"><?= $stats_totales['today_visiteurs'] ?></div>
+            <div class="stat-card-lbl">aujourd'hui · <?= $stats_totales['total_visiteurs'] ?> au total</div>
+            <div class="stat-card-lbl" style="color:var(--purple-l);margin-top:2px">Visiteurs</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon-wrap">📄</div>
+          <div>
+            <div class="stat-card-val"><?= $stats_totales['today_pages'] ?></div>
+            <div class="stat-card-lbl">aujourd'hui · <?= $stats_totales['total_pages'] ?> au total</div>
+            <div class="stat-card-lbl" style="color:var(--purple-l);margin-top:2px">Pages vues</div>
           </div>
         </div>
       </div>
+
+      <!-- Graphique visites 14 jours -->
+      <?php if (!empty($stats_jours)): ?>
+      <div class="admin-section">
+        <div class="admin-section-header">
+          <h2 class="admin-section-title">📈 Visites — 14 derniers jours</h2>
+        </div>
+        <div style="background:var(--bg3);border:0.5px solid var(--border);border-radius:var(--radius);padding:20px">
+          <canvas id="chart-visites" height="80"></canvas>
+        </div>
+      </div>
+      <?php endif; ?>
 
       <!-- Derniers messages -->
       <div class="admin-section">
@@ -132,7 +159,7 @@ $page_label = 'Dashboard';
                     <td><?= $p['visible'] ? '<span class="badge badge-ok">Oui</span>' : '<span class="badge badge-off">Non</span>' ?></td>
                     <td class="td-actions">
                       <a href="<?= SITE_URL ?>/admin/projets.php?action=edit&id=<?= (int)$p['id'] ?>" class="btn btn-sm btn-ghost">Modifier</a>
-                      <a href="<?= SITE_URL ?>/projet?id=<?= (int)$p['id'] ?>" target="_blank" class="btn btn-sm btn-ghost">Voir →</a>
+                      <a href="<?= SITE_URL ?>/projet.php?id=<?= (int)$p['id'] ?>" target="_blank" class="btn btn-sm btn-ghost">Voir →</a>
                     </td>
                   </tr>
                 <?php endforeach; ?>
@@ -145,5 +172,54 @@ $page_label = 'Dashboard';
     </div>
   </div>
 </div>
+
+<?php if (!empty($stats_jours)): ?>
+<script>
+const jours   = <?= json_encode(array_reverse(array_column($stats_jours, 'date'))) ?>;
+const visiteurs = <?= json_encode(array_reverse(array_column($stats_jours, 'nb_visiteurs'))) ?>;
+const pages   = <?= json_encode(array_reverse(array_column($stats_jours, 'nb_pages_vues'))) ?>;
+
+const labels = jours.map(d => {
+  const [y,m,j] = d.split('-');
+  return j + '/' + m;
+});
+
+new Chart(document.getElementById('chart-visites'), {
+  type: 'line',
+  data: {
+    labels,
+    datasets: [
+      {
+        label: 'Visiteurs',
+        data: visiteurs,
+        borderColor: '#a78bfa',
+        backgroundColor: 'rgba(167,139,250,0.1)',
+        tension: 0.4, fill: true, pointRadius: 4,
+        pointBackgroundColor: '#a78bfa',
+      },
+      {
+        label: 'Pages vues',
+        data: pages,
+        borderColor: '#60a5fa',
+        backgroundColor: 'rgba(96,165,250,0.07)',
+        tension: 0.4, fill: true, pointRadius: 4,
+        pointBackgroundColor: '#60a5fa',
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { labels: { color: '#7c6a9a', font: { size: 12 } } }
+    },
+    scales: {
+      x: { ticks: { color: '#4a3d60' }, grid: { color: 'rgba(124,58,237,0.1)' } },
+      y: { ticks: { color: '#4a3d60', stepSize: 1 }, grid: { color: 'rgba(124,58,237,0.1)' }, beginAtZero: true }
+    }
+  }
+});
+</script>
+<?php endif; ?>
+
 </body>
 </html>

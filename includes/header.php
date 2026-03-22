@@ -2,6 +2,11 @@
 $page_title  = $page_title  ?? SITE_NOM;
 $page_desc   = $page_desc   ?? 'Portfolio de ' . SITE_AUTEUR . ' — ' . SITE_METIER;
 $page_active = $page_active ?? '';
+
+// Tracker de visites (pages publiques uniquement)
+require_once __DIR__ . '/tracker.php';
+$pdo_tracker = get_db();
+tracker_visite($pdo_tracker);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -25,7 +30,7 @@ $page_active = $page_active ?? '';
     <span></span><span></span><span></span>
   </button>
   <div class="nav-links" id="nav-links">
-    <a href="<?= SITE_URL ?>/"          class="<?= $page_active === 'accueil' ? 'active' : '' ?>">Accueil</a>
+    <a href="<?= SITE_URL ?>/"            class="<?= $page_active === 'accueil' ? 'active' : '' ?>">Accueil</a>
     <a href="<?= SITE_URL ?>/projets.php" class="<?= $page_active === 'projets' ? 'active' : '' ?>">Projets</a>
     <a href="<?= SITE_URL ?>/apropos.php" class="<?= $page_active === 'apropos' ? 'active' : '' ?>">À propos</a>
     <a href="<?= SITE_URL ?>/contact.php" class="<?= $page_active === 'contact' ? 'active' : '' ?>">Contact</a>
