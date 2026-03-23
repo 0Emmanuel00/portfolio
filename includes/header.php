@@ -24,7 +24,7 @@ tracker_visite($pdo_tracker);
 
 <nav class="nav" id="nav">
   <a href="<?= SITE_URL ?>/" class="nav-logo">
-    <span class="logo-a"><?= mb_substr(SITE_AUTEUR, 0, 1) ?></span><span class="logo-b"><?= mb_substr(explode(' ', SITE_AUTEUR)[1] ?? '', 0, 1) ?>.</span>
+    <span class="logo-a"><?= mb_substr(SITE_AUTEUR, 0, 1) ?></span><span class="logo-b"><?= mb_substr(explode(' ', SITE_AUTEUR)[1] ?? '', 0, 1) ?></span>
   </a>
   <button class="nav-burger" id="burger" aria-label="Menu">
     <span></span><span></span><span></span>
