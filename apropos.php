@@ -23,7 +23,7 @@ $formation = [
 ];
 
 // Loisirs
-$loisirs = ['Jeux vidéo', 'Manga / anime ', 'Bidouillage informatique (tests, petits projets perso)', 'Musculation'];
+$loisirs = ['Jeux vidéo (développement et gameplay)', 'Bidouillage informatique (tests, petits projets perso)', 'Sport (musculation)', 'Manga / anime '];
 
 $nb_projets = count_projets($pdo);
 $nb_techs   = count_techs($pdo);

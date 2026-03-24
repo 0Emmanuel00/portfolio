@@ -76,7 +76,7 @@ require_once __DIR__ . '/includes/header.php';
   </div>
 
   <div class="contact-form-wrap">
-    <h2 class="contact-form-title">Votre message</h2>
+    <h2 class="contact-form-title">Votre message (Si possible en français)</h2>
 
     <form action="<?= SITE_URL ?>/actions/send_contact.php" method="POST" class="contact-form" id="contact-form" novalidate>
       <?php
@@ -101,7 +101,7 @@ require_once __DIR__ . '/includes/header.php';
       </div>
 
       <div class="field">
-        <label for="objet">Objet <span class="req">*</span></label>
+        <label for="objet">Motif de contact <span class="req">*</span></label>
         <select id="objet" name="objet" required>
           <option value="">— Choisissez un objet —</option>
           <option value="Collaboration">Une collaboration</option>
