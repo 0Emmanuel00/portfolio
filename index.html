@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Maintenance</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0a1e;
+      --purple: #7c3aed;
+      --purple-l: #a78bfa;
+      --purple-d: #4f46e5;
+      --text: #f9fafb;
+      --text-2: #7c6a9a;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .container {
+      max-width: 600px;
+      padding: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      border: 1px solid rgba(124,58,237,.4);
+      color: var(--purple-l);
+      padding: 5px 14px;
+      border-radius: 20px;
+      background: rgba(124,58,237,.08);
+      margin-bottom: 24px;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--purple-l);
+    }
+
+    h1 {
+      font-size: 42px;
+      margin-bottom: 16px;
+    }
+
+    h1 span {
+      color: var(--purple-l);
+    }
+
+    p {
+      color: var(--text-2);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .btns {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 10px 22px;
+      border-radius: 24px;
+      text-decoration: none;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--purple), var(--purple-d));
+      color: #fff;
+    }
+
+    .btn-secondary {
+      border: 1px solid rgba(124,58,237,.5);
+      color: var(--purple-l);
+    }
+
+    .btn:hover {
+      opacity: 0.85;
+      transform: translateY(-2px);
+    }
+
+    .stats {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      font-size: 22px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: #4a3d60;
+    }
+
+    /* Effets de fond */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .orb1 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(124,58,237,.2), transparent 70%);
+      top: -100px;
+      right: -100px;
+    }
+
+    .orb2 {
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(79,70,229,.15), transparent 70%);
+      bottom: -80px;
+      left: -80px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    
+    <div class="pill">
+      <div class="dot"></div>
+      Site en maintenance
+    </div>
+
+    <h1>On revient <span>très vite</span></h1>
+
+    <p>
+      Le site est actuellement en cours de mise à jour.<br>
+      Merci de votre patience, tout sera de retour le 25/03/2026 entre 18h00 et 20h30 heure Française.
+    </p>
+
+    <div class="btns">
+      <a href="/" class="btn btn-primary">Réessayer</a>
+    </div>
+
+    <div class="stats">
+      <div>
+        <div class="stat">⚙️</div>
+        <div class="stat-label">Maintenance</div>
+      </div>
+      <div>
+        <div class="stat">🚧</div>
+        <div class="stat-label">Travaux</div>
+      </div>
+      <div>
+        <div class="stat">⏳</div>
+        <div class="stat-label">Retour rapide</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+
+</body>
+</html>

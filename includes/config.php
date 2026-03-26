@@ -1,6 +1,6 @@
 <?php
 // Chargement du .env
-$env_path = __DIR__ . '/config.ini';
+$env_path = __DIR__ . '/../.env';
 if (file_exists($env_path)) {
     foreach (file($env_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $line) {
         if (str_starts_with(trim($line), '#') || !str_contains($line, '=')) continue;
@@ -41,16 +41,22 @@ if (ENV === 'dev') {
 }
 // En local sur WAMP, mettre true pour utiliser les .php
 // En production, mettre false pour les URL propres
-define('USE_EXT', true);
+define('MAIL_DEST2',    $_ENV['MAIL_DEST2']    ?? '');
+define('MAIL_FROM_NOM', $_ENV['MAIL_FROM_NOM'] ?? SITE_AUTEUR);
+define('SMTP_HOST',     $_ENV['SMTP_HOST']     ?? '');
+define('SMTP_PORT',     (int)($_ENV['SMTP_PORT'] ?? 465));
+define('SMTP_USER',     $_ENV['SMTP_USER']     ?? '');
+define('SMTP_PASS',     $_ENV['SMTP_PASS']     ?? '');
+define('USE_EXT', false);
 
 // Helper pour les liens
 function url(string $path): string {
     if (!defined('USE_EXT') || !USE_EXT) return SITE_URL . $path;
     $map = [
-        '/projets' => '/projets.php',
-        '/projet'  => '/projet.php',
-        '/apropos' => '/apropos.php',
-        '/contact' => '/contact.php',
+        '/projets' => '/projets',
+        '/projet'  => '/projet',
+        '/apropos' => '/apropos',
+        '/contact' => '/contact',
     ];
     foreach ($map as $clean => $ext) {
         if (str_starts_with($path, $clean)) {

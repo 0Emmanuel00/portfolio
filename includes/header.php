@@ -31,9 +31,9 @@ tracker_visite($pdo_tracker);
   </button>
   <div class="nav-links" id="nav-links">
     <a href="<?= SITE_URL ?>/"            class="<?= $page_active === 'accueil' ? 'active' : '' ?>">Accueil</a>
-    <a href="<?= SITE_URL ?>/projets.php" class="<?= $page_active === 'projets' ? 'active' : '' ?>">Projets</a>
-    <a href="<?= SITE_URL ?>/apropos.php" class="<?= $page_active === 'apropos' ? 'active' : '' ?>">À propos</a>
-    <a href="<?= SITE_URL ?>/contact.php" class="<?= $page_active === 'contact' ? 'active' : '' ?>">Contact</a>
+    <a href="<?= SITE_URL ?>/projets" class="<?= $page_active === 'projets' ? 'active' : '' ?>">Projets</a>
+    <a href="<?= SITE_URL ?>/apropos" class="<?= $page_active === 'apropos' ? 'active' : '' ?>">À propos</a>
+    <a href="<?= SITE_URL ?>/contact" class="<?= $page_active === 'contact' ? 'active' : '' ?>">Contact</a>
   </div>
 </nav>
 
